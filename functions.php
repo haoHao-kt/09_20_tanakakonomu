@@ -60,3 +60,5 @@ function menu($kanri_flg)
     }
     return $menu;
 }
+
+

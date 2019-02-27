@@ -6,7 +6,7 @@ session_start();
 include('functions.php');
 
 //1.  DB接続&送信データの受け取り
-$pdo = db_conn();
+$pdo = createPDO();
 
 $lid = $_POST['lid'];
 $lpw = $_POST['lpw'];
@@ -36,7 +36,7 @@ if ($val['id'] != '') {
     $_SESSION['chk_ssid'] = session_id();
     $_SESSION['kanri_flg'] = $val['kanri_flg'];
     $_SESSION['name'] = $val['name'];    
-    header('Location: select.php');
+    header('Location: main.php');
 } else {
     //ログイン失敗の場合はログイン画面へ戻る
     header('Location: login.php');

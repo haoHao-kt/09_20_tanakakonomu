@@ -1,25 +1,26 @@
  <?php
+//sessionを開始する
 session_start();
+
+//関数ファイルの読み込み
 include('functions.php');
 
+//sessionIDのチェック&再生成
 chk_ssid();
 
-//主処理
-$pdo = createPDO();
+//session変数の読み込み
+$sessonId = $_SESSION['chk_ssid'];
+$kanriFlg = $_SESSION['kanri_flg'];
+$userName = $_SESSION['name'];
 
+//プルダウンリストの読み込み
+$pdo = createPDO();
+//時代
 $sql_1 = "select name ,id from CODE_TABLE where code_name = 'age'";
 $age_options=getOption($sql_1,$pdo);
-
+//国名
 $sql_2 = "select name ,id from CODE_TABLE where code_name = 'country'";
 $country_options=getOption($sql_2,$pdo);
-
-$id        =   $_SESSION['id'] ;
-$username  =   $_SESSION['name'];
-$lid       =   $_SESSION['lid'];
-$kanri_flg =   $_SESSION['kanri_flg'];
-$life_flg  =   $_SESSION['life_flg'];
-
-
 
 ?>
 
@@ -107,7 +108,7 @@ function showCard(data){
             <img src="${data[i].img_url}" class="card-img-top" alt="image">
             <div class="card-body">
             <h5 class="card-title">${data[i].name}</h5>
-            <a href="${data[i].wiki_url}" target="_blank" class="btn btn-primary">song list</a>
+            <a href="./songlist.php?comp_id=${data[i].id}"target="_blank" class="btn btn-primary">song list</a>
             </div>`;
     }
     card_str += '</div>'
@@ -133,12 +134,12 @@ $("#search").on('click', function () {
         // Ajaxリクエストが成功した時発動
         .done( (data) => {
             console.log(data);
-            showCard(data);
             if(data.length==0){
                 console.log("no data");
                 $('.card-body').empty();
                 $('.card-body').html("no data");
             }
+            showCard(data);
         })
         // Ajaxリクエストが失敗した時発動
         .fail( (XMLHttpRequest, textStatus, errorThrown) => {
