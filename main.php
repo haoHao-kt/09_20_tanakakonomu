@@ -52,13 +52,21 @@ $country_options=getOption($sql_2,$pdo);
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+      
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href=""></a>
+                        <a class="nav-link" href="ranking.php">いいね！ランキング</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inputUser.php">ユーザー登録</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="userList.php">ユーザー一覧</a>
                     </li>
                 </ul>
             </div>
+        
         </nav>
     </header>
 <body>
@@ -69,7 +77,6 @@ $country_options=getOption($sql_2,$pdo);
             </div>
             <select class="custom-select" name="selectAge">
                 <option>Choose...</option>
-                <!-- <option selected>Choose...</option> -->
                 <?=$age_options?>            
             </select>
         </div>
@@ -79,7 +86,6 @@ $country_options=getOption($sql_2,$pdo);
             </div>
             <select class="custom-select" name="selectCountry">
                 <option>Choose...</option>
-                <!-- <option selected>Choose...</option> -->
                 <?=$country_options?>            
             </select>
         </div>
@@ -90,7 +96,6 @@ $country_options=getOption($sql_2,$pdo);
     <h5>composer list</h5>
     <div class="card">
         <div class="card-body">
-        <!-- This is some text within a card body. -->
         </div>
     </div>
 </body>
@@ -151,6 +156,7 @@ $("#search").on('click', function () {
             console.log('done');
         });
     });
+
 
 </script>
 

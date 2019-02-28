@@ -49,10 +49,13 @@ if ($status==false) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="setUser.html">ユーザー登録</a>
+                        <a class="nav-link" href="main.php">曲検索</a>
+                    </li>    
+                    <li class="nav-item">
+                        <a class="nav-link" href="ranking.php">いいね！ランキング</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="userList.php">ユーザー一覧</a>
+                        <a class="nav-link" href="inputUser.php">ユーザー登録</a>
                     </li>
                 </ul>
             </div>

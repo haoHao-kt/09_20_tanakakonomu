@@ -55,7 +55,7 @@ if($rs['life_flg']==1){
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="setUser.html">ユーザー登録</a>
+                        <a class="nav-link" href="inputUser.php">ユーザー登録</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="userList.php">ユーザー一覧</a>

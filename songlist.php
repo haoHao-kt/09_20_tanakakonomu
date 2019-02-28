@@ -5,10 +5,34 @@ $comp_id = $_GET['comp_id'];
 $pdo = createPDO();
 
 
-//曲のリスト取得
-$sql = 'select * from SONG_LIST where composer_id = :id';
+
+//作曲者情報の再取得
+$sql = 'select * from M_COMPOSER where id = :comp_id';
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $comp_id, PDO::PARAM_INT);
+$stmt->bindValue(':comp_id', $comp_id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+$comp_info='';
+if ($status==false) {
+    $error = $stmt->errorInfo();
+    exit('sqlError:'.$error[2]);
+} else {
+    while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $comp_info .= '<div class="card" style="width: 18rem;">';
+        $comp_info .= '<img src="'.$result['img_url'].'" class="card-img-top" alt="image">';
+        $comp_info .= '<div class="card-body">';
+        $comp_info .= '<h5 class="card-title">'.$result['name'].'</h5>';
+        $comp_info .= '<input id="compid" type ="hidden" value="'.$result['id'].'"></div>';
+        $comp_info .= '</div>';
+        $comp_info .= '</div>';
+    }
+}
+
+
+//曲のリスト取得
+$sql = 'select * from SONG_LIST where composer_id = :comp_id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':comp_id', $comp_id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
 $view='';
@@ -19,7 +43,8 @@ if ($status==false) {
     while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<li class="list-group-item">';
         $view .= '<p>'.$result['song_name'].'</p>';
-        $view .= '<div class="none_fav">いいね！'.$result['fav_count'].'</div>';
+        $view .= '<div id="'.$result['id'].'" class="none_fav">いいね！</div>';
+        $view .= '<div id="favcount_'.$result['id'].'">'.$result['fav_count'].'</div>';
         $view .= '</li>';
     }
 }
@@ -34,8 +59,13 @@ if ($status==false) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>songlist</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
 </head>
+
+<style>
+.en_fav{
+    color:#FF4500;
+}
+</style>
 <body>
         <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,18 +83,55 @@ if ($status==false) {
         </nav>
     </header>
     <div>
+        <?=$comp_info?>
         <?=$view?>
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- <script src="main.js"></script> -->
 <script>
+//fav機能(DECREMENT)
+// $(".none_fav, .en_fav").on('click', function () {
+//     let compID = $('#compid').val();
+//     let div = $(this);
+//     let songID = div[0].id;
+//     const data = {
+//         "post_comp_id":compID,
+//         "post_song_id":songID
+//     };
+//     $.ajax({
+//             url:'decFav.php',
+//             type:'post',
+//             data: data,
+//             dataType: 'json'
+//         })
+//         // Ajaxリクエストが成功した時発動
+//         .done( (data) => {
+//             $('#favcount_'+songID).text(data);
+//             console.log("SUCCESS");
+//             console.log(data);
+//         })
+//         // Ajaxリクエストが失敗した時発動
+//         .fail( (XMLHttpRequest, textStatus, errorThrown) => {
+//             // $('.result').html(data);
+//             console.log(XMLHttpRequest + textStatus + errorThrown);
+//         })
+//         // Ajaxリクエストが成功・失敗どちらでも発動
+//         .always( (data) => {
+//             console.log('done');
+//         });
+// });
+
+
 //fav機能(INCREMENT)
 $(".none_fav").on('click', function () {
-    console.log("aaaaaa");
-    let setID= 2010;
+    let compID = $('#compid').val();
+    let div = $(this);
+    let songID = div[0].id;
     const data = {
-        "post_comp_id":setID
+        "post_comp_id":compID,
+        "post_song_id":songID
     };
+
     $.ajax({
             url:'incFav.php',
             type:'post',
@@ -73,13 +140,7 @@ $(".none_fav").on('click', function () {
         })
         // Ajaxリクエストが成功した時発動
         .done( (data) => {
-            // console.log(data);
-            // if(data.length==0){
-            //     console.log("no data");
-            //     $('.card-body').empty();
-            //     $('.card-body').html("no data");
-            // }
-            // showCard(data);
+            $('#favcount_'+songID).text(data);
 
             console.log("SUCCESS");
             console.log(data);
