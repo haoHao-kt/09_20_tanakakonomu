@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2019 年 2 月 14 日 10:23
+-- Generation Time: 2019 年 2 月 28 日 14:12
 -- サーバのバージョン： 5.6.38
 -- PHP Version: 7.2.1
 
@@ -138,6 +138,53 @@ INSERT INTO `php02_table` (`id`, `task`, `deadline`, `comment`, `indate`) VALUES
 -- --------------------------------------------------------
 
 --
+-- テーブルの構造 `SONG_LIST`
+--
+
+CREATE TABLE `SONG_LIST` (
+  `id` int(16) NOT NULL,
+  `composer_id` int(16) NOT NULL,
+  `song_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `fav_count` int(16) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- テーブルのデータのダンプ `SONG_LIST`
+--
+
+INSERT INTO `SONG_LIST` (`id`, `composer_id`, `song_name`, `fav_count`) VALUES
+(1, 2010, '交響曲第1番ハ長調 作品21', 58),
+(2, 2010, '交響曲第2番ニ長調 作品36', 17),
+(3, 2010, '交響曲第3番変ホ長調 作品55', 3),
+(4, 2010, '交響曲第4番変ロ長調 作品60', 3),
+(5, 2010, '交響曲第5番ハ短調 作品67', 0),
+(6, 2010, '交響曲第6番ヘ長調 作品68', 7),
+(7, 2010, '交響曲第7番イ長調 作品92', 2),
+(8, 2010, '交響曲第8番ヘ長調 作品93', 4),
+(9, 2010, '交響曲第9番ニ短調 作品125', 4),
+(10, 1000, '主よ人の望みの喜びよ', 6),
+(11, 1000, 'Ｇ線上のアリア', 0),
+(12, 1000, 'ゴルトベルク変奏曲', 4),
+(13, 1000, '2つのヴァイオリンのための協奏曲', 3),
+(14, 1000, '目覚めよと呼ぶ声あり', 4),
+(15, 2010, '交響曲第9番ニ短調 作品125', 0),
+(16, 1010, '水上の音楽', 4),
+(17, 1010, 'オラトリオ「メサイヤ」', 0),
+(18, 1010, '「王宮の花火の音楽」より”序曲”', 0),
+(19, 1020, 'ヴァイオリン協奏曲「四季」', 0),
+(20, 1020, 'ヴァイオリン協奏曲 イ短調より第1楽章', 0),
+(21, 2000, '交響曲第100番 ト長調 「軍隊」', 0),
+(22, 2000, '交響曲第101番 二長調 「時計」', 0),
+(23, 2020, '交響曲第25番 ト短調 K.183', 0),
+(24, 2020, '交響曲第35番 ニ長調 K.385 「ハフナー」', 0),
+(25, 2020, '交響曲第36番 ハ長調 K.425 「リンツ」', 0),
+(26, 2020, '交響曲第38番 ニ長調 K.504 「プラハ」', 0),
+(27, 2020, '交響曲第40番 ト短調 K.550', 0),
+(28, 2020, '交響曲第41番 ハ長調 K.551「ジュピター」', 0);
+
+-- --------------------------------------------------------
+
+--
 -- テーブルの構造 `user_table`
 --
 
@@ -162,7 +209,8 @@ INSERT INTO `user_table` (`id`, `name`, `lid`, `lpw`, `kanri_flg`, `life_flg`) V
 (6, 'ユーザーネーム', 'aaaaa', 'aaaaaa', 1, 0),
 (7, 'ユーザーネーム', 'userID', 'aaaa', 0, 0),
 (8, 'ユーザーネーム', 'userID', 'lllll', 0, 0),
-(9, 'ユーザーネーム', 'userID', 'aaaa', 0, 1);
+(9, 'ユーザーネーム', 'userID', 'aaaa', 0, 1),
+(10, 'aaaaa', 'aaaaa', 'aaa', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -193,6 +241,12 @@ ALTER TABLE `php02_table`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `SONG_LIST`
+--
+ALTER TABLE `SONG_LIST`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_table`
 --
 ALTER TABLE `user_table`
@@ -215,10 +269,16 @@ ALTER TABLE `php02_table`
   MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `SONG_LIST`
+--
+ALTER TABLE `SONG_LIST`
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
 -- AUTO_INCREMENT for table `user_table`
 --
 ALTER TABLE `user_table`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
